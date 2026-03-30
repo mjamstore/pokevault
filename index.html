@@ -3,57 +3,32 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PokeVault | Sua Coleção Profissional</title>
-    
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;800&display=swap" rel="stylesheet">
-    
+    <title>PokeVault - Minha Coleção</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
     <header>
-        <h1 id="logo" onclick="resetarPagina()">PokeVault</h1>
-        <p class="tagline">Sua Pokédex pessoal de colecionador.</p>
-        
-        <div class="search-container">
-            <div class="search-box">
-                <input type="text" id="cardName" placeholder="Busque por nome ou número (ex: 40/189)...">
-                <button id="searchBtn" onclick="buscarCarta()">Pesquisar</button>
-            </div>
+        <h1>PokeVault</h1>
+        <div class="search-box">
+            <input type="text" id="cardName" placeholder="Nome do Pokémon...">
+            <button onclick="buscarCarta()">🔍</button>
         </div>
     </header>
 
-    <main class="main-content">
-        <section id="search-section" class="container">
-            <h2 id="search-title" style="display: none;">Resultados da Busca</h2>
+    <main>
+        <section>
+            <h2>Resultados</h2>
             <div id="results-grid" class="card-grid"></div>
         </section>
 
-        <div class="divider"></div>
+        <hr>
 
-        <section id="my-collection" class="container">
-            <h2>Minha Coleção (0)</h2>
-            
-            <div class="backup-controls">
-                <button class="btn-export" onclick="exportarColecao()">📥 Exportar Backup</button>
-                <label for="importFile" class="btn-import">📤 Importar Backup</label>
-                <input type="file" id="importFile" accept=".json" onchange="importarColecao(event)" style="display: none;">
-            </div>
-
-            <div class="filter-box">
-                <input type="text" id="filterInput" placeholder="Filtrar sua lista..." oninput="renderizarColecao(this.value)">
-            </div>
+        <section>
+            <h2>Minha Coleção</h2>
             <div id="collection-grid" class="card-grid"></div>
         </section>
     </main>
-
-    <div id="toast">Notificação aqui</div>
-
-    <footer>
-        <p>PokeVault &copy; 2026 - Desenvolvido por Maiara</p>
-    </footer>
 
     <script src="script.js"></script>
 </body>
