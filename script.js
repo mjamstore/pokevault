@@ -138,3 +138,66 @@ function removerCarta(id) {
         renderizarColecao();
     }
 }
+
+// ==========================================
+// FUNÇÕES DE BACKUP (IMPORTAR / EXPORTAR)
+// ==========================================
+
+// Gera um arquivo .json e baixa para o dispositivo
+function exportarColecao() {
+    if (minhaColecao.length === 0) {
+        mostrarNotificacao("Sua coleção está vazia. Não há nada para exportar.");
+        return;
+    }
+    
+    // Transforma a lista em texto e cria um link temporário para download
+    const dadosConvertidos = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(minhaColecao));
+    const botaoInvisivel = document.createElement('a');
+    botaoInvisivel.setAttribute("href", dadosConvertidos);
+    botaoInvisivel.setAttribute("download", "pokevault_backup.json");
+    
+    document.body.appendChild(botaoInvisivel);
+    botaoInvisivel.click(); // Força o clique para iniciar o download
+    botaoInvisivel.remove(); // Limpa a sujeira
+    
+    mostrarNotificacao("📥 Arquivo de backup baixado com sucesso!");
+}
+
+// Lê o arquivo .json selecionado e junta as cartas
+function importarColecao(event) {
+    const arquivo = event.target.files[0];
+    if (!arquivo) return;
+
+    const leitor = new FileReader();
+    leitor.onload = function(e) {
+        try {
+            const colecaoImportada = JSON.parse(e.target.result);
+            
+            if (Array.isArray(colecaoImportada)) {
+                let cartasNovas = 0;
+                
+                // Verifica carta por carta para não duplicar o que você já tem
+                colecaoImportada.forEach(cartaImportada => {
+                    const jaExiste = minhaColecao.find(c => c.id === cartaImportada.id);
+                    if (!jaExiste) {
+                        minhaColecao.push(cartaImportada);
+                        cartasNovas++;
+                    }
+                });
+                
+                // Salva a nova coleção combinada
+                localStorage.setItem('minhaColecao', JSON.stringify(minhaColecao));
+                renderizarColecao();
+                
+                mostrarNotificacao(`📤 Importação concluída! ${cartasNovas} cartas novas adicionadas.`);
+            } else {
+                mostrarNotificacao("❌ Arquivo inválido ou corrompido.");
+            }
+        } catch (erro) {
+            mostrarNotificacao("❌ Erro ao ler o arquivo. Tem certeza que é o backup do PokeVault?");
+        }
+    };
+    
+    leitor.readAsText(arquivo); // Inicia a leitura do arquivo
+    event.target.value = ""; // Reseta o botão para você poder importar de novo se precisar
+}

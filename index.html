@@ -35,6 +35,13 @@
 
         <section id="my-collection" class="container">
             <h2>Minha Coleção (0)</h2>
+            
+            <div class="backup-controls">
+                <button class="btn-export" onclick="exportarColecao()">📥 Exportar Backup</button>
+                <label for="importFile" class="btn-import">📤 Importar Backup</label>
+                <input type="file" id="importFile" accept=".json" onchange="importarColecao(event)" style="display: none;">
+            </div>
+
             <div class="filter-box">
                 <input type="text" id="filterInput" placeholder="Filtrar sua lista..." oninput="renderizarColecao(this.value)">
             </div>
@@ -45,7 +52,7 @@
     <div id="toast">Notificação aqui</div>
 
     <footer>
-        <p>PokeVault &copy; 2026 - Desenvolvido por PokeVault</p>
+        <p>PokeVault &copy; 2026 - Desenvolvido por Maiara</p>
     </footer>
 
     <script src="script.js"></script>
