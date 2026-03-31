@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PokeVault | Collector Edition</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Luckiest+Guy&family=Poppins:wght@300;400;600;800&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="style.css?v=6">
+</head>
+<body>
+
+    <header>
+        <h1 id="logo" onclick="resetarPagina()">PokeVault</h1>
+        <p class="tagline">Gerenciamento.</p>
+        
+        <div class="search-container">
+            <div class="search-box">
+                <input type="text" id="cardName" placeholder="Buscar nova carta (Ex: Pikachu ou 40/189)...">
+                <button id="searchBtn" onclick="buscarCarta()">Pesquisar</button>
+            </div>
+        </div>
+    </header>
+
+    <main class="main-content">
+        
+        <section class="dashboard-container container">
+            <div class="featured-card-box">
+                <h3>Pokémon em Destaque</h3>
+                <div id="featured-display">
+                    <p>Adicione cartas para ver um destaque!</p>
+                </div>
+            </div>
+
+            <div class="stats-panel">
+                <div class="stat-card">
+                    <span class="stat-icon">💰</span>
+                    <div class="stat-info">
+                        <h4 id="stat-value">R$ 0,00</h4>
+                        <p>Valor Total Estimado</p>
+                    </div>
+                </div>
+                <div class="stat-card-row">
+                    <div class="stat-card mini">
+                        <span class="stat-icon">🔴</span>
+                        <div class="stat-info">
+                            <h4 id="stat-total">0</h4>
+                            <p>Cartas</p>
+                        </div>
+                    </div>
+                    <div class="stat-card mini">
+                        <span class="stat-icon">🗺️</span>
+                        <div class="stat-info">
+                            <h4 id="stat-sets">0</h4>
+                            <p>Sets</p>
+                        </div>
+                    </div>
+                </div>
+                <button class="btn-sync" onclick="sincronizarPrecos()" id="syncBtn">🔄 Atualizar Preços das 411 Cartas</button>
+            </div>
+        </section>
+
+        <section id="progress-section" class="container">
+            <h3 class="section-subtitle">📈 Ranking de Conclusão (Worth It!)</h3>
+            <div id="progress-list" class="progress-grid">
+                </div>
+        </section>
+
+        <div class="divider"></div>
+
+        <section id="search-section" class="container">
+            <h2 id="search-title" style="display: none;">Resultados da Busca</h2>
+            <div id="results-grid" class="card-grid"></div>
+        </section>
+
+        <section id="my-collection" class="container">
+            <div class="collection-header">
+                <h2>Minha Coleção</h2>
+                <div class="backup-mini-controls">
+                    <button class="btn-small" onclick="exportarColecao()" title="Exportar Backup">📥</button>
+                    <label for="importFile" class="btn-small" title="Importar Backup">📤</label>
+                    <input type="file" id="importFile" accept=".json" onchange="importarColecao(event)" style="display: none;">
+                </div>
+            </div>
+
+            <div class="controls-row">
+                <div class="control-group">
+                    <label>Filtrar Set:</label>
+                    <select id="setFilter" onchange="renderizarColecao()">
+                        <option value="all">Todos</option>
+                    </select>
+                </div>
+                <div class="control-group">
+                    <label>Ordenar:</label>
+                    <select id="sortOrder" onchange="renderizarColecao()">
+                        <option value="newest">Mais Recentes</option>
+                        <option value="name">Nome (A-Z)</option>
+                    </select>
+                </div>
+                <div class="control-group">
+                    <label>Busca Rápida:</label>
+                    <input type="text" id="filterInput" placeholder="Filtrar..." oninput="renderizarColecao()">
+                </div>
+            </div>
+
+            <div id="collection-grid" class="card-grid"></div>
+        </section>
+    </main>
+
+    <div id="toast">Notificação</div>
+
+    <footer>
+        <p>PokeVault &copy; 2026 - Desenvolvido por PokeVault</p>
+    </footer>
+
+    <script src="script.js?v=6"></script>
+</body>
+</html>
