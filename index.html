@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PokeVault - Minha Coleção</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <header>
+        <h1>PokeVault</h1>
+        <div class="search-box">
+            <input type="text" id="cardName" placeholder="Nome do Pokémon...">
+            <button onclick="buscarCarta()">🔍</button>
+        </div>
+    </header>
+
+    <main>
+        <section>
+            <h2>Resultados</h2>
+            <div id="results-grid" class="card-grid"></div>
+        </section>
+
+        <hr>
+
+        <section>
+            <h2>Minha Coleção</h2>
+            <div id="collection-grid" class="card-grid"></div>
+        </section>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>
