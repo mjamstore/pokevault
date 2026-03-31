@@ -3,32 +3,78 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PokeVault - Minha Coleção</title>
+    <title>PokeVault | Gestão de Coleção</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;800&display=swap" rel="stylesheet">
+    
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
     <header>
-        <h1>PokeVault</h1>
-        <div class="search-box">
-            <input type="text" id="cardName" placeholder="Nome do Pokémon...">
-            <button onclick="buscarCarta()">🔍</button>
+        <h1 id="logo" onclick="resetarPagina()">PokeVault</h1>
+        <p class="tagline" id="tagline-text">Sua Pokédex pessoal de colecionador.</p>
+        
+        <div class="search-container">
+            <div class="search-box">
+                <input type="text" id="cardName" placeholder="Buscar nova carta (Nome ou 40/189)...">
+                <button id="searchBtn" onclick="buscarCarta()">Pesquisar</button>
+            </div>
         </div>
     </header>
 
-    <main>
-        <section>
-            <h2>Resultados</h2>
+    <main class="main-content">
+        <section id="search-section" class="container">
+            <h2 id="search-title" style="display: none;">Resultados da Busca</h2>
             <div id="results-grid" class="card-grid"></div>
         </section>
 
-        <hr>
+        <div class="divider"></div>
 
-        <section>
-            <h2>Minha Coleção</h2>
+        <section id="my-collection" class="container">
+            <div class="collection-header">
+                <h2>Minha Coleção (0)</h2>
+                <div class="backup-mini-controls">
+                    <button class="btn-small" onclick="exportarColecao()" title="Exportar Backup">📥</button>
+                    <label for="importFile" class="btn-small" title="Importar Backup">📤</label>
+                    <input type="file" id="importFile" accept=".json" onchange="importarColecao(event)" style="display: none;">
+                </div>
+            </div>
+
+            <div class="controls-row">
+                <div class="control-group">
+                    <label>Filtrar por Expansão:</label>
+                    <select id="setFilter" onchange="renderizarColecao()">
+                        <option value="all">Todas as Coleções</option>
+                    </select>
+                </div>
+
+                <div class="control-group">
+                    <label>Ordenar por:</label>
+                    <select id="sortOrder" onchange="renderizarColecao()">
+                        <option value="newest">Mais Recentes</option>
+                        <option value="name">Nome (A-Z)</option>
+                        <option value="number">Número da Carta</option>
+                    </select>
+                </div>
+
+                <div class="control-group">
+                    <label>Busca Rápida:</label>
+                    <input type="text" id="filterInput" placeholder="Nome do Pokémon..." oninput="renderizarColecao()">
+                </div>
+            </div>
+
             <div id="collection-grid" class="card-grid"></div>
         </section>
     </main>
+
+    <div id="toast">Notificação aqui</div>
+
+    <footer>
+        <p>PokeVault &copy; 2026 - Desenvolvido por Maiara</p>
+    </footer>
 
     <script src="script.js"></script>
 </body>
