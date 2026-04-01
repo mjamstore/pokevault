@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PokeVault | Cloud Master Edition</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Luckiest+Guy&family=Poppins:wght@300;400;600;800&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="style.css?v=10.1">
+</head>
+<body>
+
+    <header>
+        <div class="container">
+            <h1 id="logo" onclick="resetarPagina()">PokeVault</h1>
+            <p class="tagline"></p>
+            
+            <div class="search-container">
+                <div class="search-box">
+                    <input type="text" id="cardName" placeholder="Buscar nova carta (Pikachu, 40/189)...">
+                    <button id="searchBtn" onclick="buscarCarta()">Pesquisar</button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="container">
+        
+        <section id="dashboard" class="glass-panel dashboard-dedicated">
+            <div class="stat-item">
+                <span class="stat-icon">💰</span>
+                <div class="stat-data">
+                    <p class="stat-label">VALOR ESTIMADO</p>
+                    <h2 id="stat-value">R$ 0,00</h2>
+                </div>
+            </div>
+            
+            <div class="stat-item">
+                <span class="stat-icon">🔴</span>
+                <div class="stat-data">
+                    <p class="stat-label">CARTAS NO COFRE</p>
+                    <h2 id="stat-total">0</h2>
+                </div>
+            </div>
+
+            <div class="stat-item">
+                <span class="stat-icon">🗺️</span>
+                <div class="stat-data">
+                    <p class="stat-label">EXPANSÕES</p>
+                    <h2 id="stat-sets">0</h2>
+                </div>
+            </div>
+
+            <div class="dashboard-actions">
+                <button class="btn-sync" onclick="sincronizarPrecos()" id="syncBtn">🔄 Atualizar Preços</button>
+            </div>
+        </section>
+
+        <section id="album-explorer" class="glass-panel explorer-dedicated collapsible">
+            <div class="explorer-header" onclick="toggleExplorer()">
+                <div class="header-title">
+                    <h3>📊 Explorar Banco de Dados</h3>
+                    <span id="explorer-status" class="status-badge">Clique para expandir</span>
+                </div>
+                <div class="explorer-selectors" onclick="event.stopPropagation()">
+                    <select id="worthItSelect" onchange="alterarModoPrincipal()">
+                        <option value="ranking">Ranking (Worth It!)</option>
+                        <option value="single">Modo Álbum (P&B)</option>
+                    </select>
+                    <select id="albumSetSelect" onchange="ativarModoAlbum()" style="display: none;">
+                        <option value="">Selecione o Set...</option>
+                    </select>
+                </div>
+                <span id="chevron" class="chevron">▼</span>
+            </div>
+
+            <div id="explorer-body" class="explorer-body">
+                <div id="explorer-content" class="progress-grid">
+                    </div>
+            </div>
+        </section>
+
+        <section id="search-section">
+            <h2 id="search-title" class="section-title" style="display: none;">🎯 Resultados da Busca</h2>
+            <div id="results-grid" class="card-grid"></div>
+        </section>
+
+        <div class="divider"></div>
+
+        <section id="my-collection">
+            <div class="collection-header">
+                <h2>👤 Minha Coleção</h2>
+                <div class="collection-controls">
+                    <input type="text" id="filterInput" placeholder="Busca rápida..." oninput="renderizarColecao()">
+                    <div class="backup-controls">
+                        <label for="importFile" class="btn-icon" title="Migrar Backup para Nuvem">📤</label>
+                        <input type="file" id="importFile" accept=".json" onchange="carregarBackupParaNuvem(event)" style="display: none;">
+                    </div>
+                </div>
+            </div>
+            <div id="collection-grid" class="card-grid"></div>
+        </section>
+    </main>
+
+    <div id="toast">Notificação</div>
+
+    <footer>
+        <p>PokeVault &copy; 2026 - Desenvolvido por PokeVault</p>
+        <p style="font-size: 0.6rem; opacity: 0.5;">v10.1 Firestore Live Edition</p>
+    </footer>
+
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js"></script>
+    
+    <script src="script.js?v=10.1"></script>
+</body>
+</html>
